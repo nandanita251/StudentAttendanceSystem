@@ -1,0 +1,57 @@
+@model List<StudentAttendanceSystem.Models.Subject>
+@{
+    ViewData["Title"] = "Teacher Dashboard";
+}
+
+<h2><i class="bi bi-person-badge"></i> Teacher Dashboard</h2>
+<p class="lead">Welcome, @ViewBag.TeacherName!</p>
+<hr />
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h5>Total Subjects</h5>
+                <h2>@ViewBag.TotalSubjects</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <h5>Today's Attendance Marked</h5>
+                <h2>@ViewBag.TodayAttendance</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4>My Subjects</h4>
+<div class="row">
+    @foreach (var subject in Model)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">@subject.SubjectName</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Code:</strong> @subject.SubjectCode</p>
+                    <p><strong>Class:</strong> @subject.Class</p>
+                    <a asp-action="MarkAttendance" asp-route-subjectId="@subject.SubjectId" class="btn btn-primary btn-sm w-100 mb-2">
+                        <i class="bi bi-calendar-check"></i> Mark Attendance
+                    </a>
+                    <a asp-action="ViewAttendance" asp-route-subjectId="@subject.SubjectId" class="btn btn-secondary btn-sm w-100">
+                        <i class="bi bi-eye"></i> View Attendance
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="mt-4">
+    <a asp-action="Reports" class="btn btn-success">
+        <i class="bi bi-file-earmark-bar-graph"></i> View Reports
+    </a>
+</div>

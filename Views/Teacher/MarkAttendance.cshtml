@@ -1,0 +1,73 @@
+@model StudentAttendanceSystem.ViewModels.MarkAttendanceViewModel
+@{
+    ViewData["Title"] = "Mark Attendance";
+}
+
+<h2><i class="bi bi-calendar-check"></i> Mark Attendance</h2>
+<hr />
+
+@if (ViewBag.AlreadyMarked != null)
+{
+    <div class="alert alert-warning">
+        <i class="bi bi-exclamation-triangle"></i> Attendance has already been marked for this date. You can update it below.
+    </div>
+}
+
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">@Model.SubjectName - @Model.Class</h5>
+    </div>
+    <div class="card-body">
+        <p><strong>Date:</strong> @Model.Date.ToShortDateString()</p>
+    </div>
+</div>
+
+<form asp-action="MarkAttendance" method="post">
+    <input type="hidden" asp-for="SubjectId" />
+    <input type="hidden" asp-for="Date" />
+    
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Roll No</th>
+                        <th>Student Name</th>
+                        <th>Status</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Students.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                @Model.Students[i].RollNo
+                                <input type="hidden" asp-for="Students[i].StudentId" />
+                                <input type="hidden" asp-for="Students[i].StudentName" />
+                                <input type="hidden" asp-for="Students[i].RollNo" />
+                            </td>
+                            <td>@Model.Students[i].StudentName</td>
+                            <td>
+                                <select asp-for="Students[i].IsPresent" class="form-select">
+                                    <option value="true">Present</option>
+                                    <option value="false">Absent</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input asp-for="Students[i].Remarks" class="form-control" placeholder="Optional remarks" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            
+            <button type="submit" class="btn btn-success btn-lg">
+                <i class="bi bi-save"></i> Save Attendance
+            </button>
+            <a asp-action="Dashboard" class="btn btn-secondary btn-lg">
+                <i class="bi bi-x-circle"></i> Cancel
+            </a>
+        </div>
+    </div>
+</form>

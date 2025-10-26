@@ -1,0 +1,59 @@
+@model List<StudentAttendanceSystem.Models.Attendance>
+@{
+    ViewData["Title"] = "View Attendance";
+}
+
+<h2><i class="bi bi-eye"></i> View Attendance</h2>
+<p><strong>Subject:</strong> @ViewBag.SubjectName | <strong>Class:</strong> @ViewBag.Class</p>
+<p><strong>Date:</strong> @ViewBag.Date</p>
+<hr />
+
+<div class="mb-3">
+    <a asp-action="Dashboard" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Back to Dashboard
+    </a>
+</div>
+
+@if (Model != null && Model.Any())
+{
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped table-bordered">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Roll No</th>
+                        <th>Student Name</th>
+                        <th>Status</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var record in Model)
+                    {
+                        <tr>
+                            <td>@record.Student.RollNo</td>
+                            <td>@record.Student.Name</td>
+                            <td>
+                                @if (record.Status)
+                                {
+                                    <span class="badge bg-success">Present</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Absent</span>
+                                }
+                            </td>
+                            <td>@record.Remarks</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning">
+        <i class="bi bi-exclamation-triangle"></i> No attendance records found for this date.
+    </div>
+}

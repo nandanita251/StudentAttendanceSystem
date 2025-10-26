@@ -1,0 +1,100 @@
+@model List<StudentAttendanceSystem.ViewModels.AttendanceReportViewModel>
+@{
+    ViewData["Title"] = "Attendance Reports";
+}
+
+<h2><i class="bi bi-file-earmark-bar-graph"></i> Attendance Reports</h2>
+<hr />
+
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Filter Reports</h5>
+    </div>
+    <div class="card-body">
+        <form asp-action="GetReport" method="post">
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="form-label">Class</label>
+                    <select name="className" class="form-select" required>
+                        <option value="">-- Select Class --</option>
+                        @foreach (var className in ViewBag.Classes as List<string>)
+                        {
+                            <option value="@className" selected="@(ViewBag.SelectedClass == className)">@className</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Subject (Optional)</label>
+                    <select name="subjectId" class="form-select">
+                        <option value="">-- All Subjects --</option>
+                        @foreach (var subject in ViewBag.Subjects as List<StudentAttendanceSystem.Models.Subject>)
+                        {
+                            <option value="@subject.SubjectId">@subject.SubjectName</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Start Date</label>
+                    <input type="date" name="startDate" class="form-control" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">End Date</label>
+                    <input type="date" name="endDate" class="form-control" />
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-search"></i> Generate Report
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (Model != null && Model.Any())
+{
+    <div class="card">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0">Attendance Report - @ViewBag.SelectedClass</h5>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <a asp-action="ExportToExcel" asp-route-className="@ViewBag.SelectedClass" class="btn btn-success">
+                    <i class="bi bi-file-earmark-excel"></i> Export to Excel
+                </a>
+            </div>
+            
+            <table class="table table-striped table-bordered">
+                <thead class="table-success">
+                    <tr>
+                        <th>Roll No</th>
+                        <th>Student Name</th>
+                        <th>Class</th>
+                        <th>Total Classes</th>
+                        <th>Present</th>
+                        <th>Absent</th>
+                        <th>Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.RollNo</td>
+                            <td>@item.StudentName</td>
+                            <td>@item.Class</td>
+                            <td>@item.TotalClasses</td>
+                            <td class="text-success">@item.PresentClasses</td>
+                            <td class="text-danger">@item.AbsentClasses</td>
+                            <td>
+                                <span class="badge @(item.AttendancePercentage >= 75 ? "bg-success" : "bg-danger")">
+                                    @item.AttendancePercentage%
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
