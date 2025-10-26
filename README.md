@@ -11,7 +11,11 @@ A complete **ASP.NET Core 8 MVC** web application for managing student attendanc
 
 ## Images
 
+Login/Register
+
 <img width="605" height="766" alt="image" src="https://github.com/user-attachments/assets/7ba49590-9eb9-4175-ac7e-21f1e35c01b9" />
+
+Admin Dashboard
 
 <img width="1918" height="887" alt="image" src="https://github.com/user-attachments/assets/61b70a5d-4a86-4299-8351-3329112b8189" />
 
@@ -23,11 +27,15 @@ A complete **ASP.NET Core 8 MVC** web application for managing student attendanc
 
 <img width="1918" height="393" alt="image" src="https://github.com/user-attachments/assets/a9dc6bda-fd6b-47ee-8d9e-743ab82765f6" />
 
+Teacher dashboard
+
 <img width="1918" height="852" alt="image" src="https://github.com/user-attachments/assets/801f0052-4876-49f2-b082-ed4e61242208" />
 
 <img width="1918" height="587" alt="image" src="https://github.com/user-attachments/assets/ccb4b3ed-a721-4ffa-aaaa-b343f84ae85e" />
 
 <img width="1918" height="772" alt="image" src="https://github.com/user-attachments/assets/3f594758-b6d3-48cc-9663-28915da333ed" />
+
+Student dashboard
 
 <img width="1918" height="798" alt="image" src="https://github.com/user-attachments/assets/1d242ab5-bceb-49b5-83e6-bea60f1ec18e" />
 
